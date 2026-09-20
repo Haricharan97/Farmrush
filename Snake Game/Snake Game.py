@@ -15,6 +15,10 @@ food_y=random.randrange(0,600,20)
 score=0
 font=pygame.font.SysFont(None,30)
 
+body_x=[]
+body_y=[]
+length=1
+
 running=True
 while running==True:
     for event in pygame.event.get():
@@ -47,12 +51,20 @@ while running==True:
 
     if x==food_x and y==food_y:
         score +=1
+        length=length+1
         food_x = random.randrange(0,800,20)
         food_y = random.randrange(0,600,20)
+    body_x.append(x)
+    body_y.append(y)
+    if len(body_x)>length:
+        del body_x[0]
+        del body_y[0]
         
     screen.fill((0,0,0))
-    pygame.draw.rect(screen,(255,0,0),(food_x,food_y,20,20))
-    pygame.draw.rect(screen,(0,255,0),(x,(y-1),20,20))
+    pygame.draw.rect(screen,(150,0,0),(food_x,food_y,20,20))
+    pygame.draw.rect(screen,(0,150,0),(x,(y-1),20,20))
+    for b in range(len(body_x)):
+        pygame.draw.rect(screen,(0,150,0),(body_x[b],body_y[b],19,19))
     text = font.render("Score"+str(score),True,(255,255,255))
     screen.blit(text,(10,10))
     pygame.display.flip()
@@ -60,3 +72,4 @@ while running==True:
     pygame.time.delay(150)
 
 pygame.quit()
+
