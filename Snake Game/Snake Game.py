@@ -93,7 +93,99 @@ while waiting:
         if event.type == pygame.MOUSEBUTTONDOWN:
             waiting = False
 
-    screen.fill((10, 10, 10))
+    screen.fill((92, 62, 38))
+    surface.fill((0, 0, 0, 0))
+    
+    for lane_y in range(0, 600, 40):
+        pygame.draw.rect(
+                screen, 
+                (82, 52, 31), 
+                (0, lane_y, 800, 40)
+                )
+    
+        for soil_x in range(0, 800, 20):
+            pygame.draw.line(
+                screen,
+                    (105, 72, 43),
+                    (soil_x + 3, lane_y + 10),
+                    (soil_x + 15, lane_y + 10),
+                    2
+                )
+    
+            pygame.draw.line(
+                        screen,
+                        (65, 40, 24),
+                        (soil_x + 7, lane_y + 27),
+                        (soil_x + 18, lane_y + 27),
+                        2
+                    )
+    
+            pygame.draw.line(
+                    screen,
+                    (55, 35, 22),
+                    (0, lane_y + 39),
+                    (800, lane_y + 39),
+                    2
+                )
+    
+        for grid_y in range(0, 600, 20):
+                for grid_x in range(0, 800, 20):
+                        status = crop_status[grid_y // 20][grid_x // 20]
+    
+                        if status == 0:
+                            pygame.draw.line(
+                                surface,
+                                (60, 130, 40, 90),
+                                (grid_x + 10, grid_y + 18),
+                                (grid_x + 10, grid_y + 9),
+                                2
+                            )
+    
+                            pygame.draw.line(
+                                surface,
+                                (70, 145, 45, 90),
+                                (grid_x + 10, grid_y + 14),
+                                (grid_x + 6, grid_y + 11),
+                                2
+                            )
+                        
+                        elif status == 1:
+                            pygame.draw.line(
+                                surface,
+                                (50, 115, 35, 90),
+                                (grid_x + 10, grid_y + 19),
+                                (grid_x + 10, grid_y + 5),
+                                4
+                            )
+    
+                            pygame.draw.line(
+                                surface, 
+                                (65, 140, 40, 90),
+                                (grid_x + 10, grid_y + 14),
+                                (grid_x + 4, grid_y +10),
+                                3
+                            )
+    
+                            pygame.draw.line(
+                                surface,
+                                (65, 140, 40, 90),
+                                (grid_x + 10, grid_y + 12),
+                                (grid_x + 16, grid_y + 8),
+                                3
+                            )
+    
+                            pygame.draw.line(
+                                surface,
+                                (220, 185, 55, 90),
+                                (grid_x + 10, grid_y + 6),
+                                (grid_x + 16, grid_y + 8),
+                                3
+                            )
+    
+                        elif status == 2:
+                            pass
+
+    screen.blit(surface, (0,0))
 
     start_text = font.render(
         "Press SPACE OR CLICK TO Start",
@@ -621,7 +713,100 @@ while playing_game:
                     if event.type == pygame.MOUSEBUTTONDOWN:
                         restart_waiting = False
 
-            screen.fill((10,10,10))
+            screen.fill((92, 62, 38))
+            surface.fill((0, 0, 0, 0))
+            
+            for lane_y in range(0, 600, 40):
+                        pygame.draw.rect(
+                            screen, 
+                            (82, 52, 31), 
+                            (0, lane_y, 800, 40)
+                            )
+            
+                        for soil_x in range(0, 800, 20):
+                            pygame.draw.line(
+                                screen,
+                                (105, 72, 43),
+                                (soil_x + 3, lane_y + 10),
+                                (soil_x + 15, lane_y + 10),
+                                2
+                            )
+            
+                            pygame.draw.line(
+                                screen,
+                                (65, 40, 24),
+                                (soil_x + 7, lane_y + 27),
+                                (soil_x + 18, lane_y + 27),
+                                2
+                            )
+            
+                        pygame.draw.line(
+                            screen,
+                            (55, 35, 22),
+                            (0, lane_y + 39),
+                            (800, lane_y + 39),
+                            2
+                        )
+            
+            for grid_y in range(0, 600, 20):
+                        for grid_x in range(0, 800, 20):
+                                status = crop_status[grid_y // 20][grid_x // 20]
+            
+                                if status == 0:
+                                    pygame.draw.line(
+                                        surface,
+                                        (60, 130, 40, 90),
+                                        (grid_x + 10, grid_y + 18),
+                                        (grid_x + 10, grid_y + 9),
+                                        2
+                                    )
+            
+                                    pygame.draw.line(
+                                        surface,
+                                        (70, 145, 45, 90),
+                                        (grid_x + 10, grid_y + 14),
+                                        (grid_x + 6, grid_y + 11),
+                                        2
+                                    )
+                                
+                                elif status == 1:
+                                    pygame.draw.line(
+                                        surface,
+                                        (50, 115, 35, 90),
+                                        (grid_x + 10, grid_y + 19),
+                                        (grid_x + 10, grid_y + 5),
+                                        4
+                                    )
+            
+                                    pygame.draw.line(
+                                        surface, 
+                                        (65, 140, 40, 90),
+                                        (grid_x + 10, grid_y + 14),
+                                        (grid_x + 4, grid_y +10),
+                                        3
+                                    )
+            
+                                    pygame.draw.line(
+                                        surface,
+                                        (65, 140, 40, 90),
+                                        (grid_x + 10, grid_y + 12),
+                                        (grid_x + 16, grid_y + 8),
+                                        3
+                                    )
+            
+                                    pygame.draw.line(
+                                        surface,
+                                        (220, 185, 55, 90),
+                                        (grid_x + 10, grid_y + 6),
+                                        (grid_x + 16, grid_y + 8),
+                                        3
+                                    )
+            
+                                elif status == 2:
+                                    pass
+
+                        screen.blit(surface, (0,0))
+            
 
             game_over_text = big_font.render(
                 "GAME OVER",
