@@ -18,6 +18,12 @@ bonus_x = -20
 bonus_y = -20
 new_bonus = True
 
+bonus_active = False
+bonus_start_time = 0
+
+current_time = pygame.time.get_ticks()
+bonus_spawn_time = current_time + 30000
+
 score = 0
 font = pygame.font.SysFont(None,30)
 
@@ -124,6 +130,13 @@ while playing_game:
     food_x = random.randrange(0,800,20)
     food_y = random.randrange(0,600,20)
 
+    bonus_x = -20
+    bonus_y = -20
+    bonus_active = False
+
+    current_time = pygame.time.get_ticks()
+    bonus_spawn_time = current_time + 30000
+
     while running:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -159,6 +172,8 @@ while playing_game:
 
         if window_closed == True:
             break
+
+        current_time = pygame.time.get_ticks()
 
         if paused == True:
             pause_text = font.render(
@@ -226,6 +241,45 @@ while playing_game:
 
                     if delay_time < 50:
                         delay_time = 50
+
+        current_time = pygame.time.get_ticks()
+
+        if bonus_active == False:
+            if current_time >= bonus_spawn_time:
+
+                bonus_ok = False
+
+                while bonus_ok == False:
+                    bonus_x = random.randrange(0,800,20)
+                    bonus_y = random.randrange(0,600,20)
+
+                    bonus_ok = True
+
+                    if bonus_x == food_x and bonus_y == food_y:
+                        bonus_ok = False
+
+                    for j in range(len(obstacle_x)):
+                        if bonus_x == obstacle_x[j] and bonus_y == obstacle_y[j]:
+                            bonus_ok = False
+
+                    for j in range(len(body_x)):
+                        if bonus_x == body_x[j] and bonus_y == body_y[j]:
+                            bonus_ok = False
+
+                bonus_active = True
+
+        if bonus_active == True:
+            snake_head = pygame.Rect(x,y,20,20)
+            bonus_rect = pygame.Rect(bonus_x,bonus_y,20,20)
+
+            if snake_head.colliderect(bonus_rect):
+                score += 5
+
+                bonus_active = False
+                bonus_x = -20
+                bonus_y = -20
+
+                bonus_spawn_time = pygame.time.get_ticks() + 30000
 
         body_x.append(x)
         body_y.append(y)
@@ -402,6 +456,21 @@ while playing_game:
             (food_x + 15, food_y + 15)
         )
 
+        if bonus_active == True:
+            pygame.draw.circle(
+                screen,
+                (255, 0, 255),
+                (bonus_x + 10, bonus_y + 10),
+                9
+            )
+
+            pygame.draw.circle( 
+                screen,
+                (255,255,255),
+                (bonus_x + 10, bonus_y + 10),
+                4
+            )
+
         for b in range(len(body_x)):
             shade = 150 + b * 5
 
@@ -447,6 +516,27 @@ while playing_game:
         )
 
         screen.blit(length_text, (120, 10))
+
+        if bonus_active == True:
+            bonus_text = font.render(
+                "BONUS +5",
+                True,
+                (255,255,255)
+            )
+            screen.blit(bonus_text, (240, 10))
+
+        else:
+            seconds_left = (bonus_spawn_time - pygame.time.get_ticks()) // 1000 + 1
+            if seconds_left < 0:
+                seconds_left = 0
+
+            bonus_timer_text = font.render(
+                "Bonus in:" + str(seconds_left),
+                True,
+                (255,255,255)
+            )
+
+            screen.blit(bonus_timer_text, (240,10))
 
         pygame.display.flip()
         pygame.time.delay(delay_time)
