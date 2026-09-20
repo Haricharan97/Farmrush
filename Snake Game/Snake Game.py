@@ -19,6 +19,7 @@ body_x=[]
 body_y=[]
 length=1
 
+paused=False
 running=True
 waiting=True
 while waiting==True:
@@ -29,6 +30,8 @@ while waiting==True:
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_SPACE:
                 waiting=False
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            waiting=False
     screen.fill((10,10,10))
     start_text=font.render("press space to start",True,(150,150,150))
     screen.blit(start_text,(290,280))
@@ -51,6 +54,20 @@ while running==True:
             if event.key == pygame.K_LEFT:
                 move_x=-20
                 move_y=0
+            if event.key == pygame.K_SPACE:
+                if paused==False:
+                    paused=True
+                else:
+                    paused=False
+    if paused == True:
+        if event.type==pygame.MOUSEBUTTONDOWN:
+            paused=False
+    if paused == True:
+        pause_text=font.render("PAUSED",True,(150,150,150))
+        screen.blit(pause_text,(360,290))
+        pygame.display.flip()
+        pygame.time.delay(150)
+        continue
     x=x+move_x
     y=y+move_y
 
