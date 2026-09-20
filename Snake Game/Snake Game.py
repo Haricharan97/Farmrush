@@ -19,6 +19,25 @@ body_x=[]
 body_y=[]
 length=1
 
+obstacle_x=[]
+obstacle_y=[]
+obstacles=10
+
+while len(obstacle_x)< obstacles:
+    new_x=random.randrange(0,800,20)
+    new_y=random.randrange(0,600,20)
+    ok=True
+    if abs(new_x)+abs(new_y) <=100:
+        ok=False
+    if new_x==food_x and new_y==food_y:
+        ok=False
+    for j in range(len(obstacle_x)):
+        if new_x==obstacle_x[j] and new_y==food_y:
+            ok=False
+    if ok ==True:
+        obstacle_x.append(new_x)
+        obstacle_y.append(new_y)
+
 paused=False
 delay_time=150
 running=True
@@ -90,11 +109,26 @@ while running==True:
         if x == body_x[i] and y == body_y[i]:
             running=False
 
+    for j in range(len(obstacle_x)):
+        if x==obstacle_x[j] and y==obstacle_y[j]:
+            running=False
+
     if x==food_x and y==food_y:
         score +=1
         length=length+1
         food_x = random.randrange(0,800,20)
         food_y = random.randrange(0,600,20)
+
+        food_ok=False
+        while food_ok==False:
+            food_ok=True
+            for j in range(len(obstacle_x)):
+                if food_x== obstacle_x[j] and food_y==obstacle_y[j:]:
+                    food_ok=False
+            if food_ok==False:
+                food_x = random.randrange(0,800,20)
+                food_y = random.randrange(0,600,20)
+    
 
         if score %5 == 0:
             delay_time=delay_time-20
@@ -108,8 +142,11 @@ while running==True:
         del body_y[0]
         
     screen.fill((0,0,0))
+
+    for j in range(len(obstacle_x)):
+        pygame.draw.rect(screen,(128,128,128),(obstacle_x[j],obstacle_y[j],20,20))
+
     pygame.draw.rect(screen,(150,0,0),(food_x,food_y,20,20))
-    pygame.draw.rect(screen,(0,150,0),(x,(y-1),20,20))
     for b in range(len(body_x)):
         pygame.draw.rect(screen,(0,150,0),(body_x[b],body_y[b],19,19))
 
