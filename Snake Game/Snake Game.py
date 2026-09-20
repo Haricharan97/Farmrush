@@ -22,6 +22,7 @@ length=1
 paused=False
 running=True
 waiting=True
+
 while waiting==True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -37,6 +38,7 @@ while waiting==True:
     screen.blit(start_text,(290,280))
     pygame.display.flip()
     pygame.time.delay(150)
+
 while running==True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -59,15 +61,18 @@ while running==True:
                     paused=True
                 else:
                     paused=False
+
     if paused == True:
         if event.type==pygame.MOUSEBUTTONDOWN:
             paused=False
+
     if paused == True:
         pause_text=font.render("PAUSED",True,(150,150,150))
         screen.blit(pause_text,(360,290))
         pygame.display.flip()
         pygame.time.delay(150)
         continue
+
     x=x+move_x
     y=y+move_y
 
@@ -85,6 +90,7 @@ while running==True:
         length=length+1
         food_x = random.randrange(0,800,20)
         food_y = random.randrange(0,600,20)
+
     body_x.append(x)
     body_y.append(y)
     if len(body_x)>length:
@@ -96,10 +102,10 @@ while running==True:
     pygame.draw.rect(screen,(0,150,0),(x,(y-1),20,20))
     for b in range(len(body_x)):
         pygame.draw.rect(screen,(0,150,0),(body_x[b],body_y[b],19,19))
+
     text = font.render("Score"+str(score),True,(255,255,255))
     screen.blit(text,(10,10))
     pygame.display.flip()
-
     pygame.time.delay(150)
 
 pygame.quit()
