@@ -31,6 +31,8 @@ for grid_y in range(0, 600, 20):
 
     crop_status.append(row)
 
+surface = pygame.Surface((800, 600), pygame.SRCALPHA)
+
 running=True
 while running==True:
     for event in pygame.event.get():
@@ -164,7 +166,68 @@ while running==True:
                 elif status == 2:
                     pass
 
-    pygame.draw.rect(screen,(205,170,45),(food_x + 2,food_y + 2,16,16))
+    pygame.draw.polygon(
+        screen,
+        (205,170,45),
+        [
+            (food_x + 1, food_y + 3),
+            (food_x + 4, food_y + 1),
+            (food_x + 8, food_y + 2),
+            (food_x + 12, food_y + 1),
+            (food_x + 16, food_y + 3),
+            (food_x + 19, food_y + 2),
+            (food_x + 18, food_y + 6),
+            (food_x + 19, food_y + 10),
+            (food_x + 17, food_y + 14),
+            (food_x + 19, food_y + 17),
+            (food_x + 15, food_y + 19),
+            (food_x + 11, food_y + 18),
+            (food_x + 7, food_y + 19),
+            (food_x + 3, food_y + 17),
+            (food_x + 1, food_y + 14),
+            (food_x + 2, food_y + 10),
+            (food_x + 1, food_y + 6)
+        ]
+    )
+
+    pygame.draw.line(
+        screen,
+        (240, 205, 70),
+        (food_x + 3, food_y + 16),
+        (food_x + 8, food_y + 4),
+        2
+    )
+
+    pygame.draw.line(
+        screen,
+        (175, 140, 30),
+        (food_x + 7, food_y + 17),
+        (food_x + 12, food_y + 3),
+        2
+    )
+
+    pygame.draw.line(
+        screen,
+        (240, 205, 70),
+        (food_x + 11, food_y + 16),
+        (food_x + 16, food_y + 5),
+        2
+    )
+
+    pygame.draw.line(
+        screen,
+        (160, 125, 25),
+        (food_x + 3, food_y + 7),
+        (food_x + 16, food_y + 12),
+        1
+    )
+
+    pygame.draw.line(
+        screen,
+        (250, 220, 90),
+        (food_x + 4, food_y + 4),
+        (food_x + 15, food_y + 15)
+    )
 
     pygame.draw.rect(screen,(0,255,100),(x,y,20,20))
  
