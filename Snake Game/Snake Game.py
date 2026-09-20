@@ -36,6 +36,131 @@ for grid_y in range(0, 600, 20):
     crop_status.append(row)
 
 surface = pygame.Surface((800, 600), pygame.SRCALPHA)
+bag_surface = pygame.Surface((20, 20), pygame.SRCALPHA)
+first_bag_surface = pygame.Surface((20, 20), pygame.SRCALPHA)
+farmer_surface = pygame.Surface((20, 20), pygame.SRCALPHA)
+
+pygame.draw.rect(
+    bag_surface,
+    (115, 72, 35),
+    (1, 1, 18, 18)
+)
+
+pygame.draw.line(
+    bag_surface,
+    (220, 185, 55),
+    (3, 10),
+    (16, 10),
+    1
+)
+
+first_bag_surface.blit(bag_surface, (0, 0))
+
+pygame.draw.line(
+    first_bag_surface,
+    (75, 45, 22),
+    (6, 2),
+    (12, 2),
+    2
+)
+
+pygame.draw.rect(
+    first_bag_surface,
+    (90, 55, 25),
+    (9, 1, 3, 3)
+)
+
+pygame.draw.rect(
+    farmer_surface,
+    (55, 100, 160),
+    (3, 8, 14, 10)
+)
+
+pygame.draw.rect(
+    farmer_surface,
+    (35, 65, 115),
+    (6, 8, 8, 10)
+)
+
+pygame.draw.rect(
+    farmer_surface,
+    (205, 155, 105),
+    (1, 9, 4, 7)
+)
+
+pygame.draw.rect(
+    farmer_surface,
+    (205, 155, 105),
+    (15, 9, 4, 7)
+)
+
+pygame.draw.rect(
+    farmer_surface,
+    (210, 165, 115),
+    (3, 2, 14, 13)
+)
+
+pygame.draw.rect(
+    farmer_surface,
+    (195, 145, 100),
+    (1, 6, 3, 5)
+)
+
+pygame.draw.rect(
+    farmer_surface,
+    (195, 145, 100),
+    (16, 6, 3, 5)
+)
+
+pygame.draw.rect(
+    farmer_surface,
+    (105, 65, 30),
+    (1, 3, 18, 4)
+)
+
+pygame.draw.rect(
+    farmer_surface,
+    (125, 78, 35),
+    (1, 3, 18, 4) 
+)
+
+pygame.draw.rect(
+    farmer_surface,
+    (125, 78, 35),
+    (5, 0, 10, 6)
+)
+
+pygame.draw.rect(
+    farmer_surface,
+    (75, 45, 22),
+    (5, 5, 10, 2)
+)
+
+pygame.draw.rect(
+    farmer_surface,
+    (30, 25, 20),
+    (5, 8, 3, 3)
+)
+
+pygame.draw.rect(
+    farmer_surface,
+    (30, 25, 20),
+    (12, 8, 3, 3)
+)
+
+pygame.draw.rect(
+    farmer_surface,
+    (180, 125, 85),
+    (9, 10, 2, 2)
+)
+
+pygame.draw.line(
+    farmer_surface,
+    (100, 55, 45),
+    (8, 13),
+    (12, 13),
+    1
+)
 
 obstacle_x = []
 obstacle_y = []
@@ -310,6 +435,19 @@ while running:
 
     screen.blit(surface, (0, 0))
     for j in range(len(obstacle_x)):
+
+        ox = obstacle_x[j]
+        oy = obstacle_y[j]
+
+        pygame.draw.polygon(
+            screen,
+            [45, 30, 20],
+            [
+                (ox + 1, oy + 7),
+                (ox + 4, oy + 3)
+            ]
+        )
+
         pygame.draw.rect(
             screen,
             (128, 128, 128),
@@ -384,137 +522,57 @@ while running:
         (food_x + 15, food_y + 15)
     )
 
+    if move_y == 20:
+        angle = 180
+
+    elif move_x == -20:
+        angle = 90
+
+    elif move_y == -20:
+        angle = 0
+
+    elif move_x == 20:
+        angle = 270
+
     for b in range(len(body_x)):
-        pygame.draw.rect(
-            screen,
-            (115, 72, 35),
-            (body_x[b] + 1, body_y[b] + 1, 18, 18)
-        )
-
-        pygame.draw.line(
-            screen,
-            (75, 45, 22),
-            (body_x[b] + 3, body_y[b] + 10),
-            (body_x[b] + 16, body_y[b] + 10),
-            2
-        )
-
+        
         if b == 0:
-
-            pygame.draw.line(
-                screen,
-                (75, 45, 22),
-                (body_x[b] + 6, body_y[b] + 2),
-                (body_x[b] + 12, body_y[b] + 2),
-                2
-            )
-
-            pygame.draw.rect(
-                screen,
-                (90, 55, 25),
-                (body_x[b] + 9, body_y[b] + 1, 3, 3)
-            )
-
+            bag = first_bag_surface
         else:
-            
-            pygame.draw.line(
-                screen,
-                (220, 180, 55),
-                (body_x[b] + 3, body_y[b] + 10),
-                (body_x[b] + 16, body_y[b] + 10),
-                1
+            bag = bag_surface
+
+        rotated_bag = pygame.transform.rotate(
+            bag, 
+            angle
+        )
+
+        bag_rect = rotated_bag.get_rect(
+            center = (
+                body_x[b] + 10,
+                body_y[b] + 10
             )
+        )
 
-    pygame.draw.rect(
-        screen,
-        (55, 100, 160),
-        (x + 3, y + 8, 14, 10)
+        screen.blit(
+            rotated_bag,
+            bag_rect
+        )
+
+    rotated_farmer = pygame.transform.rotate(
+        farmer_surface,
+        angle
     )
 
-    pygame.draw.rect(
-        screen,
-        (35, 65, 115),
-        (x + 6, y + 8, 8, 10)
+    farmer_rect = rotated_farmer.get_rect(
+        center = (
+            x + 10, 
+            y + 10
+        )
     )
 
-    pygame.draw.rect(
-        screen,
-        (205, 155, 105),
-        (x + 1, y + 9, 4, 7)
-    )
-
-    pygame.draw.rect(
-        screen,
-        (205, 155, 105),
-        (x + 15, y + 9, 4, 7)
-    )
-
-    pygame.draw.rect(
-        screen,
-        (210, 165, 115),
-        (x + 3, y + 2, 14, 13)
-    )
-
-    pygame.draw.rect(
-        screen,
-        (195, 145, 100),
-        (x + 1, y + 6, 3, 5)
-    )
-
-    pygame.draw.rect(
-        screen,
-        (195, 145, 100),
-        (x + 16, y + 6, 3, 5)
-    )
-
-    pygame.draw.rect(
-        screen,
-        (105, 65, 30),
-        (x + 1, y + 3, 18, 4)
-    )
-
-    pygame.draw.rect(
-        screen,
-        (125, 78, 35),
-        (x + 1, y + 3, 18, 4) 
-    )
-
-    pygame.draw.rect(
-        screen,
-        (125, 78, 35),
-        (x + 5, y, 10, 6)
-    )
-
-    pygame.draw.rect(
-        screen,
-        (75, 45, 22),
-        (x + 5, y + 5, 10, 2)
-    )
-
-    pygame.draw.rect(
-        screen,
-        (30, 25, 20),
-        (x + 5, y + 8, 3, 3)
-    )
-
-    pygame.draw.rect(
-        screen,
-        (30, 25, 20),
-        (x + 12, y + 8, 3, 3)
-    )
-
-    pygame.draw.rect(
-        screen,
-        (180, 125, 85),
-        (x + 9, y + 10, 2, 2)
-    )
-
-    pygame.draw.line(
-        screen,
-        (100, 55, 45),
-        (x + 8, y + 13),
-        (x + 12, y + 13),
-        1
+    screen.blit(
+        rotated_farmer,
+        farmer_rect
     )
 
     score_text = font.render(
