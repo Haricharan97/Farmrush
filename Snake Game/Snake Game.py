@@ -457,19 +457,80 @@ while playing_game:
         )
 
         if bonus_active == True:
-            pygame.draw.circle(
-                screen,
-                (255, 0, 255),
-                (bonus_x + 10, bonus_y + 10),
-                9
-            )
 
-            pygame.draw.circle( 
-                screen,
-                (255,255,255),
-                (bonus_x + 10, bonus_y + 10),
-                4
-            )
+            blink = pygame.time.get_ticks()
+
+            if (blink // 150) % 2 == 0:
+                pygame.draw.polygon(
+                    screen,
+                    (205, 170, 45),
+                    [
+                        (bonus_x + 1, bonus_y + 3),
+                        (bonus_x + 4, bonus_y + 1),
+                        (bonus_x + 8, bonus_y + 2),
+                        (bonus_x + 12, bonus_y + 1),
+                        (bonus_x + 16, bonus_y + 3),
+                        (bonus_x + 19, bonus_y + 2),
+                        (bonus_x + 18, bonus_y + 6),
+                        (bonus_x + 18, bonus_y + 10),
+                        (bonus_x + 17, bonus_y + 14),
+                        (bonus_x + 19, bonus_y + 17),
+                        (bonus_x + 15, bonus_y + 19),
+                        (bonus_x + 11, bonus_y + 18),
+                        (bonus_x + 7, bonus_y + 19),
+                        (bonus_x + 3, bonus_y + 17),
+                        (bonus_x + 1, bonus_y + 14),
+                        (bonus_x + 2, bonus_y + 10),
+                        (bonus_x + 1, bonus_y + 6)
+                    ]
+                )
+
+                pygame.draw.line(
+                    screen,
+                    (240,205,70),
+                    (bonus_x + 3, bonus_y + 16),
+                    (bonus_x + 8, bonus_y +4),
+                    2
+                )
+
+                pygame.draw.line(
+                    screen,
+                    (175, 140, 30),
+                    (bonus_x + 7, bonus_y + 17),
+                    (bonus_x + 12, bonus_y +3),
+                    2
+                )
+
+                pygame.draw.line(
+                    screen,
+                    (240,205,70),
+                    (bonus_x + 11, bonus_y + 16),
+                    (bonus_x + 16, bonus_y +5),
+                    2
+                )
+
+                pygame.draw.line(
+                    screen,
+                    (160,125,25),
+                    (bonus_x + 3, bonus_y + 7),
+                    (bonus_x + 16, bonus_y +12),
+                    1
+                )
+
+                pygame.draw.line(
+                    screen,
+                    (250,220,90),
+                    (bonus_x + 4, bonus_y + 4),
+                    (bonus_x + 15, bonus_y + 15),
+                )
+
+                pygame.draw.line(
+                    screen,
+                    (240,0,0),
+                    (bonus_x + 2, bonus_y + 10),
+                    (bonus_x + 18, bonus_y + 10),
+                    3
+                )
 
         for b in range(len(body_x)):
             shade = 150 + b * 5
