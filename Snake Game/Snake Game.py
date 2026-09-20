@@ -393,33 +393,37 @@ while running:
 
         pygame.draw.line(
             screen,
-            (155, 105, 55),
-            (body_x[b] + 3, body_y[b] + 10),
-            (body_x[b] + 16, body_y[b] + 10),
-            1
-        )
-
-        pygame.draw.line(
-            screen,
             (75, 45, 22),
             (body_x[b] + 3, body_y[b] + 10),
             (body_x[b] + 16, body_y[b] + 10),
-            1
-        )
-
-        pygame.draw.line(
-            screen,
-            (75, 45, 22),
-            (body_x[b] + 6, body_y[b] + 2),
-            (body_x[b] + 12, body_y[b] + 2),
             2
         )
 
-        pygame.draw.rect(
-            screen,
-            (90, 55, 25),
-            (body_x[b] + 9, body_y[b] + 1, 3, 3)
-    )
+        if b == 0:
+
+            pygame.draw.line(
+                screen,
+                (75, 45, 22),
+                (body_x[b] + 6, body_y[b] + 2),
+                (body_x[b] + 12, body_y[b] + 2),
+                2
+            )
+
+            pygame.draw.rect(
+                screen,
+                (90, 55, 25),
+                (body_x[b] + 9, body_y[b] + 1, 3, 3)
+            )
+
+        else:
+            
+            pygame.draw.line(
+                screen,
+                (220, 180, 55),
+                (body_x[b] + 3, body_y[b] + 10),
+                (body_x[b] + 16, body_y[b] + 10),
+                1
+            )
 
     pygame.draw.rect(
         screen,
@@ -516,7 +520,7 @@ while running:
     score_text = font.render(
         "Score: " + str(score), 
         True, 
-        (255,255,255)
+        (255, 255, 255)
     )
 
     screen.blit(score_text, (10, 10))
