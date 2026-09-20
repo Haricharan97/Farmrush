@@ -9,14 +9,6 @@ y=300
 move_x=20
 move_y=0
 
-bg_colors = [
-    (0, 0, 0),
-    (10, 10, 30),
-    (20, 10, 10),
-    (10, 25, 10),
-    (25, 20, 5)
-]
-
 food_x=random.randrange(0,800,20)
 food_y=random.randrange(0,600,20)
 
@@ -28,6 +20,17 @@ body_y=[]
 length=1
 
 started = False
+
+crop_status = []
+
+for grid_y in range(0, 600, 20):
+    row = []
+
+    for grid_x in range(0, 800, 20):
+        row.append(random.randint(0, 2))
+
+    crop_status.append(row)
+
 running=True
 while running==True:
     for event in pygame.event.get():
@@ -74,24 +77,107 @@ while running==True:
         del body_x[0]
         del body_y[0]
         
-    background = bg_colors[(score//5)%len(bg_colors)]
-    screen.fill(background)
+    screen.fill((92, 62, 38))
 
-    
+    for lane_y in range(0, 600, 40):
+        pygame.draw.rect(screen, (82, 52, 31), (0, lane_y, 800, 40))
 
-    for grid_x in range(0, 800, 20):
-        pygame.draw.line(screen, (35, 35, 35), (grid_x, 0), (grid_x, 600), 1)
+        for soil_x in range(0, 800, 20):
+            pygame.draw.line(
+                screen,
+                (105, 72, 43),
+                (soil_x + 3, lane_y + 10),
+                (soil_x + 15, lane_y + 10),
+                2
+            )
 
-    for grid_y in range(0, 800, 20):
-        pygame.draw.line(screen, (35, 35, 35), (0, grid_y), (800, grid_y), 1)
+            pygame.draw.line(
+                screen,
+                (65, 40, 24),
+                (soil_x + 7, lane_y + 27),
+                (soil_x + 18, lane_y +27),
+                2
+            )
 
-    pygame.draw.rect(screen,(150,0,0),(food_x,food_y,20,20))
-    pygame.draw.rect(screen,(0,255,100),(x,(y-1),20,20))
+            pygame.draw.line(
+                screen,
+                (55, 35, 22),
+                (0, lane_y + 39),
+                (800, lane_y + 39),
+                2
+            )
+
+    for grid_y in range(0, 600, 20):
+        for grid_x in range(0, 800, 20):
+
+                status = crop_status[grid_y // 20][grid_x // 20]
+
+                if status == 0:
+                    pygame.draw.line(
+                        screen,
+                        (60, 130, 40),
+                        (grid_x + 10, grid_y + 18),
+                        (grid_x + 10, grid_y + 9),
+                        2
+                    )
+
+                    pygame.draw.line(
+                        screen,
+                        (70, 145, 45),
+                        (grid_x+10, grid_y+14),
+                        (grid_x+6, grid_y +11),
+                        2
+                    )
+                    
+
+                elif status == 1:
+                    pygame.draw.line(
+                        screen,
+                        (50, 115, 35),
+                        (grid_x + 10, grid_y + 19),
+                        (grid_x + 10, grid_y + 5),
+                        4
+                    )
+
+                    pygame.draw.line(
+                        screen, (65, 140, 40),
+                        (grid_x + 10, grid_y + 14),
+                        (grid_x + 4, grid_y +10),
+                        3
+                    )
+
+                    pygame.draw.line(
+                        screen,
+                        (65, 140, 40),
+                        (grid_x + 10, grid_y + 12),
+                        (grid_x + 16, grid_y + 8),
+                        3
+                    )
+
+                    pygame.draw.line(
+                        screen,
+                        (220, 185, 55),
+                        (grid_x + 10, grid_y + 6),
+                        (grid_x + 16, grid_y + 8),
+                        3
+                    )
+                elif status == 2:
+                    pass
+
+    pygame.draw.rect(screen,(205,170,45),(food_x + 2,food_y + 2,16,16))
+
+    pygame.draw.rect(screen,(0,255,100),(x,y,20,20))
+ 
+
     for b in range(len(body_x)):
-        pygame.draw.rect(screen,(0,150,0),(body_x[b],body_y[b],19,19))
+        shade = max(50, 150 + b * 5)
+        pygame.draw.rect(screen,(0,shade,0),(body_x[b],body_y[b],19,19))
+
+    pygame.draw.rect(screen, (0, 0, 0), (x+3, y+3, 4, 4))
+    pygame.draw.rect(screen, (0, 0, 0), (x+13, y+3, 4, 4))
     score_text = font.render("Score: "+str(score), True, (255,255,255))
     screen.blit(score_text,(10,10))
-    length_text = font.render("Length: " + str(score), True, (255, 255, 255))
+    length_text = font.render("Length: " + str(length), True, (255, 255, 255))
     screen.blit(length_text, (120, 10))
 
     if not started:
@@ -102,11 +188,9 @@ while running==True:
         )
 
         start_rect = start_text.get_rect(center = (400, 300))
-
         screen.blit(start_text, start_rect)
 
     pygame.display.flip()
-
     pygame.time.delay(150)
 
 pygame.quit()
