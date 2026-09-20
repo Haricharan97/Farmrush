@@ -100,7 +100,29 @@ while waiting:
     pygame.display.flip()
     pygame.time.delay(150)
     
-started = True
+playing_game = True
+
+while playing_game:
+
+    x = 400
+    y = 300
+
+    move_x = 20
+    move_y = 0
+
+    score = 0
+    length = 1
+
+    body_x = []
+    body_y = []
+
+    delay_time = 150
+
+    paused = False
+    running = True
+
+    food_x = random.randrange(0,800,20)
+    food_y = random.randrange(0,600,20)
 
 while running:
 
@@ -118,20 +140,24 @@ while running:
                     paused = False
 
             if event.key == pygame.K_UP:
-                move_x = 0
-                move_y = -20
+                if move_y != 20:
+                    move_x = 0
+                    move_y = -20
 
             if event.key == pygame.K_DOWN:
-                move_x = 0
-                move_y = 20
+                if move_y != -20:
+                    move_x = 0
+                    move_y = 20
 
             if event.key == pygame.K_RIGHT:
-                move_x = 20
-                move_y = 0
+                if move_x != -20:
+                    move_x = 20
+                    move_y = 0
 
             if event.key == pygame.K_LEFT:
-                move_x = -20
-                move_y = 0
+                if move_x != 20:
+                    move_x = -20
+                    move_y = 0
 
     if paused == True:
 
@@ -177,16 +203,21 @@ while running:
         score +=1
         length += 1
 
+        food_ok = False
+
         food_x = random.randrange(0, 800, 20)
         food_y = random.randrange(0, 600, 20)
 
-        food_ok = False
 
         while food_ok == False:
             food_ok = True
 
             for j in range(len(obstacle_x)):
                 if food_x == obstacle_x[j] and food_y == obstacle_y[j]:
+                    food_ok = False
+
+            for j in range(len(body_x)):
+                if food_x == body_x[j] and food_y == body_y[j]:
                     food_ok = False
 
             if food_ok == False:
@@ -374,20 +405,23 @@ while running:
         (food_x + 15, food_y + 15)
     )
 
+    for b in range(len(body_x)):
+        shade = 150 + b * 5
+
+        if shade > 255:
+            shade = 255
+
+        pygame.draw.rect(
+            screen,
+            (0,shade,0),
+            (body_x[b], body_y[b],19,19)
+              )
+
     pygame.draw.rect(
         screen,
         (0,255,100),
         (x,y,20,20)
     )
- 
-
-    for b in range(len(body_x)):
-        shade = max(50, 150 + b * 5)
-        pygame.draw.rect(
-            screen,
-            (0,shade,0),
-            (body_x[b], body_y[b], 19, 19)
-        )
 
     pygame.draw.rect(
         screen, 
@@ -420,7 +454,6 @@ while running:
     pygame.display.flip()
     pygame.time.delay(delay_time)
 
-ending = True
 
 if window_closed == True:
     ending = False
@@ -436,6 +469,38 @@ while ending:
 
         if event.type == pygame.MOUSEBUTTONDOWN:
                     ending = False
+
+    screen.fill((10,10,10))
+
+    game_over_text = big_font.render(
+        "GAME OVER",
+        True,
+        (255,255,255)
+    )
+
+    final_score_text = medium_font.render(
+        "Score: " + str(score),
+        True,
+        (255,255,255)
+    )
+
+    final_length_text = font.render(
+        "Length: " + str(length),
+        True,
+        (180,180,180)
+    )
+
+    exit_text = font.render(
+        "Press SPACE or CLICK to exit",
+        True,
+        (150,150,150)
+    )
+
+    screen.blit(game_over_text, (220,160))
+    screen.blit(final_score_text, (320,260))
+    screen.blit(final_length_text, (350,320))
+    screen.blit(exit_text, (270, 390))
+
 
     pygame.display.flip()
     pygame.time.delay(100)
