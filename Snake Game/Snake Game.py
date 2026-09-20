@@ -3,7 +3,7 @@ import random
 
 pygame.init()
 
-screen=pygame.display.set_mode((800,600))
+screen = pygame.display.set_mode((800, 600))
 
 x = 400
 y = 300
@@ -19,7 +19,7 @@ bonus_y = -20
 new_bonus = True
 
 score = 0
-font = pygame.font.SysFont(None,30)
+font = pygame.font.SysFont(None, 30)
 
 body_x = []
 body_y = []
@@ -108,43 +108,53 @@ while running:
 
         if event.type == pygame.QUIT:
             running = False
-            window_closed =True
+            window_closed = True
             
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_SPACE:
-                if paused == False:
-                    paused = True
-                else:
+
+                if paused:
                     paused = False
+                else: 
+                    paused = True
 
-            if event.key == pygame.K_UP:
-                move_x = 0
-                move_y = -20
+            if paused == False: 
 
-            if event.key == pygame.K_DOWN:
-                move_x = 0
-                move_y = 20
+                if event.key == pygame.K_UP:
+                    move_x = 0
+                    move_y = -20
 
-            if event.key == pygame.K_RIGHT:
-                move_x = 20
-                move_y = 0
+                if event.key == pygame.K_DOWN:
+                    move_x = 0
+                    move_y = 20
 
-            if event.key == pygame.K_LEFT:
-                move_x = -20
-                move_y = 0
+                if event.key == pygame.K_RIGHT:
+                    move_x = 20
+                    move_y = 0
 
-    if paused == True:
+                if event.key == pygame.K_LEFT:
+                    move_x = -20
+                    move_y = 0
 
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            if paused:
+                paused = False
+
+    if paused:
+
+        screen.fill((10, 10, 10))
+        
         pause_text = font.render(
             "PAUSED",
             True,
-            (150,150,150)
+            (150, 150, 150)
         )
 
-        screen.blit(pause_text, (360, 290))
+        pause_rect = pause_text.get_rect(center = (400, 300))
+        screen.blit(pause_text, pause_rect)
 
         pygame.display.flip()
-        pygame.time.delay(150)
+        pygame.time.delay(100)
 
         continue
 
@@ -374,33 +384,135 @@ while running:
         (food_x + 15, food_y + 15)
     )
 
-    pygame.draw.rect(
-        screen,
-        (0,255,100),
-        (x,y,20,20)
-    )
- 
-
     for b in range(len(body_x)):
-        shade = max(50, 150 + b * 5)
         pygame.draw.rect(
             screen,
-            (0,shade,0),
-            (body_x[b], body_y[b], 19, 19)
+            (115, 72, 35),
+            (body_x[b] + 1, body_y[b] + 1, 18, 18)
         )
 
-    pygame.draw.rect(
-        screen, 
-        (0, 0, 0), 
-        (x + 3, y + 3, 4, 4)
+        pygame.draw.line(
+            screen,
+            (155, 105, 55),
+            (body_x[b] + 3, body_y[b] + 10),
+            (body_x[b] + 16, body_y[b] + 10),
+            1
+        )
+
+        pygame.draw.line(
+            screen,
+            (75, 45, 22),
+            (body_x[b] + 3, body_y[b] + 10),
+            (body_x[b] + 16, body_y[b] + 10),
+            1
+        )
+
+        pygame.draw.line(
+            screen,
+            (75, 45, 22),
+            (body_x[b] + 6, body_y[b] + 2),
+            (body_x[b] + 12, body_y[b] + 2),
+            2
+        )
+
+        pygame.draw.rect(
+            screen,
+            (90, 55, 25),
+            (body_x[b] + 9, body_y[b] + 1, 3, 3)
     )
-    
+
     pygame.draw.rect(
-        screen, 
-        (0, 0, 0), 
-        (x + 13, y + 3, 4, 4)
+        screen,
+        (55, 100, 160),
+        (x + 3, y + 8, 14, 10)
     )
-    
+
+    pygame.draw.rect(
+        screen,
+        (35, 65, 115),
+        (x + 6, y + 8, 8, 10)
+    )
+
+    pygame.draw.rect(
+        screen,
+        (205, 155, 105),
+        (x + 1, y + 9, 4, 7)
+    )
+
+    pygame.draw.rect(
+        screen,
+        (205, 155, 105),
+        (x + 15, y + 9, 4, 7)
+    )
+
+    pygame.draw.rect(
+        screen,
+        (210, 165, 115),
+        (x + 3, y + 2, 14, 13)
+    )
+
+    pygame.draw.rect(
+        screen,
+        (195, 145, 100),
+        (x + 1, y + 6, 3, 5)
+    )
+
+    pygame.draw.rect(
+        screen,
+        (195, 145, 100),
+        (x + 16, y + 6, 3, 5)
+    )
+
+    pygame.draw.rect(
+        screen,
+        (105, 65, 30),
+        (x + 1, y + 3, 18, 4)
+    )
+
+    pygame.draw.rect(
+        screen,
+        (125, 78, 35),
+        (x + 1, y + 3, 18, 4) 
+    )
+
+    pygame.draw.rect(
+        screen,
+        (125, 78, 35),
+        (x + 5, y, 10, 6)
+    )
+
+    pygame.draw.rect(
+        screen,
+        (75, 45, 22),
+        (x + 5, y + 5, 10, 2)
+    )
+
+    pygame.draw.rect(
+        screen,
+        (30, 25, 20),
+        (x + 5, y + 8, 3, 3)
+    )
+
+    pygame.draw.rect(
+        screen,
+        (30, 25, 20),
+        (x + 12, y + 8, 3, 3)
+    )
+
+    pygame.draw.rect(
+        screen,
+        (180, 125, 85),
+        (x + 9, y + 10, 2, 2)
+    )
+
+    pygame.draw.line(
+        screen,
+        (100, 55, 45),
+        (x + 8, y + 13),
+        (x + 12, y + 13),
+        1
+    )
+
     score_text = font.render(
         "Score: " + str(score), 
         True, 
