@@ -20,6 +20,7 @@ body_y=[]
 length=1
 
 paused=False
+delay_time=150
 running=True
 waiting=True
 
@@ -34,8 +35,8 @@ while waiting==True:
         if event.type == pygame.MOUSEBUTTONDOWN:
             waiting=False
     screen.fill((10,10,10))
-    start_text=font.render("press space to start",True,(150,150,150))
-    screen.blit(start_text,(290,280))
+    start_text=font.render("Press SPACE Or CLICK to start",True,(150,150,150))
+    screen.blit(start_text,(250,280))
     pygame.display.flip()
     pygame.time.delay(150)
 
@@ -85,11 +86,20 @@ while running==True:
     if y<0:
         y=580
 
+    for i in range(len(body_x)):
+        if x == body_x[i] and y == body_y[i]:
+            running=False
+
     if x==food_x and y==food_y:
         score +=1
         length=length+1
         food_x = random.randrange(0,800,20)
         food_y = random.randrange(0,600,20)
+
+        if score %5 == 0:
+            delay_time=delay_time-20
+            if delay_time<50:
+                delay_time=50
 
     body_x.append(x)
     body_y.append(y)
@@ -106,7 +116,7 @@ while running==True:
     text = font.render("Score"+str(score),True,(255,255,255))
     screen.blit(text,(10,10))
     pygame.display.flip()
-    pygame.time.delay(150)
+    pygame.time.delay(delay_time)
 
 pygame.quit()
 
