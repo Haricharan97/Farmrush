@@ -20,6 +20,20 @@ body_y=[]
 length=1
 
 running=True
+waiting=True
+while waiting==True:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            waiting=False
+            running=False
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_SPACE:
+                waiting=False
+    screen.fill((10,10,10))
+    start_text=font.render("press space to start",True,(150,150,150))
+    screen.blit(start_text,(290,280))
+    pygame.display.flip()
+    pygame.time.delay(150)
 while running==True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
