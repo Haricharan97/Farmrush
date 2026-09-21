@@ -324,12 +324,13 @@ async def main():
         screen.blit(surface, (0,0))
 
         start_text = font.render(
-            "Press SPACE OR CLICK TO Start",
+            "Press SPACE or CLICK to start harvesting",
             True,
             (150,150,150)
         )
 
-        screen.blit(start_text, (250, 280))
+        start_rect = start_text.get_rect(center = (400, 300))
+        screen.blit(start_text, start_rect)
 
         pygame.display.flip()
         await asyncio.sleep(0.15)
@@ -417,10 +418,17 @@ async def main():
                 pause_text = font.render(
                     "PAUSED",
                     True,
-                    (150, 150, 150)
+                    (225, 225, 225)
                 )
 
                 pause_rect = pause_text.get_rect(center = (400, 300))
+                background_rect = pause_rect.inflate(40, 20)
+                pygame.draw.rect(
+                    screen,
+                    (55, 35, 22),
+                    background_rect
+                )
+
                 screen.blit(pause_text, pause_rect)
 
                 pygame.display.flip()
@@ -767,15 +775,6 @@ async def main():
                             1
                         )
 
-
-
-
-
-
-
-
-
-
             screen.blit(surface, (0, 0))
             for j in range(len(obstacle_x)):
 
@@ -848,29 +847,23 @@ async def main():
                     (ox + 15, oy + 3, 3, 2)
                 )
             
-                score_text = font.render(
-                    "Score: " + str(score), 
-                    True, 
-                    (255,255,255)
-                )
+            score_text = font.render(
+                "Wheat Harvested: " + str(score), 
+                True, 
+                (255,255,255)
+            )
 
-                screen.blit(score_text, (10, 10))
+            length_text = font.render(
+                "Bags: " + str(length),
+                True,
+                (255, 255, 255)
+            )
 
-                length_text = font.render(
-                    "Length: " + str(length),
-                    True,
-                    (255, 255, 255)
-                )
+            score_rect = score_text.get_rect(center = (400, 25))
+            length_rect = length_text.get_rect(center = (400, 55))
 
-                screen.blit(length_text, (120, 10))
-
-                if bonus_active == True:
-                    bonus_text = font.render(
-                        "BONUS +5",
-                        True,
-                        (255,255,255)
-                    )
-                    screen.blit(bonus_text, (240, 10))
+            screen.blit(score_text, score_rect)
+            screen.blit(length_text, length_rect)
 
             if move_y == 20:
                 angle = 180
@@ -924,29 +917,6 @@ async def main():
                 rotated_farmer,
                 farmer_rect
             )
-
-            if bonus_active == True:
-                bonus_text = font.render(
-                    "BONUS +5",
-                    True,
-                    (255, 255, 255)
-                )
-
-                screen.blit(bonus_text, (240, 10))
-
-            else:
-                seconds_left = (bonus_spawn_time - pygame.time.get_ticks()) // 1000 + 1
-
-                if seconds_left < 0:
-                    seconds_left = 0
-
-                bonus_timer_text = font.render(
-                    "Bonus in:" + str(seconds_left),
-                    True,
-                    (255, 255, 255)
-                )
-
-                screen.blit(bonus_timer_text, (240, 10))
 
             pygame.display.flip()
             await asyncio.sleep(delay_time / 1000)
@@ -1066,33 +1036,38 @@ async def main():
             
 
                 game_over_text = big_font.render(
-                    "GAME OVER",
+                    "YOU FELL IN A POND",
                     True,
                     (255,255,255)
                     )
 
                 final_score_text = medium_font.render(
-                    "Score: " + str(score),
+                    "Wheat Harvested: " + str(score),
                     True,
                     (255,255,255)
                     )
 
                 final_length_text = font.render(
-                    "Length: " + str(length),
+                    "Bags: " + str(length),
                     True,
                     (180,180,180)
                     )
 
                 restart_text = font.render(
-                    "Press SPACE To Restart",
+                    "Press SPACE To Harvest",
                     True,
                     (150,150,150)
                     )
 
-                screen.blit(game_over_text, (220,160))
-                screen.blit(final_score_text, (320,260))
-                screen.blit(final_length_text, (350,320))
-                screen.blit(restart_text, (270, 390))
+                game_over_rect = game_over_text.get_rect(center=(400, 200))
+                score_rect = final_score_text.get_rect(center=(400, 280))
+                length_rect = final_length_text.get_rect(center=(400, 330))
+                restart_rect = restart_text.get_rect(center=(400, 400))
+
+                screen.blit(game_over_text, game_over_rect)
+                screen.blit(final_score_text, score_rect)
+                screen.blit(final_length_text, length_rect)
+                screen.blit(restart_text, restart_rect)
 
                 pygame.display.flip()
                 await asyncio.sleep(0.1)
