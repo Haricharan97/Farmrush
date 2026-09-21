@@ -444,19 +444,65 @@ while running:
             [45, 30, 20],
             [
                 (ox + 1, oy + 7),
-                (ox + 4, oy + 3)
+                (ox + 4, oy + 3),
+                (ox + 10, oy + 1),
+                (ox + 16, oy + 1),
+                (ox + 19, oy + 9),
+                (ox + 18, oy + 15),
+                (ox + 14, oy + 19),
+                (ox + 7, oy + 18),
+                (ox + 2, oy + 15),
+                (ox + 1, oy + 7)
             ]
+        )
+
+        pygame.draw.polygon(
+            screen,
+            (25, 75, 105),
+            [
+                (ox + 3, oy + 8),
+                (ox + 7, oy + 4),
+                (ox + 13, oy + 4),
+                (ox + 17, oy + 8),
+                (ox + 16, oy + 14),
+                (ox + 6, oy + 16),
+                (ox + 3, oy + 13)
+            ]
+        )
+
+        pygame.draw.line(
+            screen,
+            (25, 75, 105),
+            (ox + 5, oy + 12),
+            (ox + 14, oy + 14)
+        )
+
+        pygame.draw.line(
+            screen,
+            (80, 160, 185),
+            (ox + 6, oy + 7),
+            (ox + 11, oy + 6),
+            1
+        )
+
+        pygame.draw.line(
+            screen,
+            (95, 175, 195),
+            (ox + 12, oy + 9),
+            (ox + 15, oy + 9),
+            1
         )
 
         pygame.draw.rect(
             screen,
-            (128, 128, 128),
-            (
-                obstacle_x[j],
-                obstacle_y[j],
-                20,
-                20
-            )
+            (105, 65, 35),
+            (ox + 2, oy + 16, 3, 2)
+        )
+
+        pygame.draw.rect(
+            screen,
+            (105, 65, 35),
+            (ox + 15, oy + 3, 3, 2)
         )
 
     pygame.draw.polygon(
