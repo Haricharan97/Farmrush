@@ -31,7 +31,7 @@ jobs:
 
       - name: Build Farmrush
         run: |
-          python -m pygbag --build Farmrush/build/web Farmrush
+          python -m pygbag --build Farmrush
 
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
