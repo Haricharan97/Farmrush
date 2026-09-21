@@ -48,32 +48,30 @@ farmer_surface = pygame.Surface((20, 20), pygame.SRCALPHA)
 
 pygame.draw.rect(
     bag_surface,
-    (115, 72, 35),
+    (150, 100, 55),
     (1, 1, 18, 18)
 )
 
-pygame.draw.line(
+pygame.draw.rect(
     bag_surface,
-    (220, 185, 55),
-    (3, 10),
-    (16, 10),
-    1
+    (75, 45, 22),
+    (5, 5, 10, 10)
 )
 
 first_bag_surface.blit(bag_surface, (0, 0))
 
 pygame.draw.line(
     first_bag_surface,
-    (75, 45, 22),
-    (6, 2),
-    (12, 2),
-    2
+    (235, 200, 110),
+    (5, 17),
+    (15, 17),
+    3
 )
 
 pygame.draw.rect(
     first_bag_surface,
-    (90, 55, 25),
-    (9, 1, 3, 3)
+    (255, 235, 160),
+    (8, 15, 4, 4)
 )
 
 pygame.draw.rect(
@@ -120,25 +118,19 @@ pygame.draw.rect(
 
 pygame.draw.rect(
     farmer_surface,
-    (105, 65, 30),
+    (225, 190, 80),
     (1, 3, 18, 4)
 )
 
 pygame.draw.rect(
     farmer_surface,
-    (125, 78, 35),
-    (1, 3, 18, 4) 
-)
-
-pygame.draw.rect(
-    farmer_surface,
-    (125, 78, 35),
+    (225, 190, 80),
     (5, 0, 10, 6)
 )
 
 pygame.draw.rect(
     farmer_surface,
-    (75, 45, 22),
+    (170, 120, 45),
     (5, 5, 10, 2)
 )
 
@@ -330,45 +322,6 @@ while playing_game:
     x = 400
     y = 300
 
-        if event.type == pygame.QUIT:
-            running = False
-            window_closed = True
-            
-        if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_SPACE:
-
-                if paused:
-                    paused = False
-                else: 
-                    paused = True
-
-            if paused == False: 
-
-                if event.key == pygame.K_UP:
-                    move_x = 0
-                    move_y = -20
-
-                if event.key == pygame.K_DOWN:
-                    move_x = 0
-                    move_y = 20
-
-                if event.key == pygame.K_RIGHT:
-                    move_x = 20
-                    move_y = 0
-
-                if event.key == pygame.K_LEFT:
-                    move_x = -20
-                    move_y = 0
-
-        if event.type == pygame.MOUSEBUTTONDOWN:
-            if paused:
-                paused = False
-
-    if paused:
-
-        screen.fill((10, 10, 10))
-        
-        pause_text = font.render(
     move_x = 20
     move_y = 0
 
@@ -383,8 +336,8 @@ while playing_game:
     paused = False
     running = True
 
-    food_x = random.randrange(0,800,20)
-    food_y = random.randrange(0,600,20)
+    food_x = random.randrange(0, 800, 20)
+    food_y = random.randrange(0, 600, 20)
 
     bonus_x = -20
     bonus_y = -20
@@ -395,59 +348,61 @@ while playing_game:
 
     while running:
         for event in pygame.event.get():
+
             if event.type == pygame.QUIT:
                 running = False
-                window_closed =True
-
+                window_closed = True
+                
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_SPACE:
-                    if paused == False:
-                        paused = True
-                    else:
+
+                    if paused:
                         paused = False
+                    else: 
+                        paused = True
 
-                if event.key == pygame.K_UP:
-                    if move_y != 20:
-                        move_x = 0
-                        move_y = -20
+                if paused == False: 
 
-                if event.key == pygame.K_DOWN:
-                    if move_y != -20:
-                        move_x = 0
-                        move_y = 20
+                    if event.key == pygame.K_UP:
+                        if move_y != 20:
+                            move_x = 0
+                            move_y = -20
 
-                if event.key == pygame.K_RIGHT:
-                    if move_x != -20:
-                        move_x = 20
-                        move_y = 0
+                    if event.key == pygame.K_DOWN:
+                        if move_y != -20:
+                            move_x = 0
+                            move_y = 20
 
-                if event.key == pygame.K_LEFT:
-                    if move_x != 20:
-                        move_x = -20
-                        move_y = 0
+                    if event.key == pygame.K_RIGHT:
+                        if move_x != -20:    
+                            move_x = 20
+                            move_y = 0
+
+                    if event.key == pygame.K_LEFT:
+                        if move_x != 20:
+                            move_x = -20
+                            move_y = 0
+
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if paused:
+                    paused = False
 
         if window_closed == True:
             break
 
-        current_time = pygame.time.get_ticks()
-
         if paused == True:
             pause_text = font.render(
-            "PAUSED",
-            True,
-            (150, 150, 150)
-        )
+                "PAUSED",
+                True,
+                (150, 150, 150)
+            )
 
-        pause_rect = pause_text.get_rect(center = (400, 300))
-        screen.blit(pause_text, pause_rect)
+            pause_rect = pause_text.get_rect(center = (400, 300))
+            screen.blit(pause_text, pause_rect)
 
-        pygame.display.flip()
-        pygame.time.delay(100)
-
-        continue
-            screen.blit(pause_text,(360, 290))
             pygame.display.flip()
             pygame.time.delay(150)
+            
             continue
 
         x = x + move_x
@@ -644,17 +599,6 @@ while playing_game:
                         pass
 
         screen.blit(surface, (0, 0))
-        for j in range(len(obstacle_x)):
-            pygame.draw.rect(
-                screen,
-                (128, 128, 128),
-                (
-                    obstacle_x[j],
-                    obstacle_y[j],
-                    20,
-                    20
-                )
-            )
 
         pygame.draw.polygon(
             screen,
@@ -795,200 +739,177 @@ while playing_game:
                     3
                 )
 
-        for b in range(len(body_x)):
-            shade = 150 + b * 5
+        screen.blit(surface, (0, 0))
+        for j in range(len(obstacle_x)):
 
-            if shade > 255:
-                shade = 255
+            ox = obstacle_x[j]
+            oy = obstacle_y[j]
+
+            pygame.draw.polygon(
+                screen,
+                [45, 30, 20],
+                [
+                    (ox + 1, oy + 7),
+                    (ox + 4, oy + 3),
+                    (ox + 10, oy + 1),
+                    (ox + 16, oy + 1),
+                    (ox + 19, oy + 9),
+                    (ox + 18, oy + 15),
+                    (ox + 14, oy + 19),
+                    (ox + 7, oy + 18),
+                    (ox + 2, oy + 15),
+                    (ox + 1, oy + 7)
+                ]
+            )
+
+            pygame.draw.polygon(
+                screen,
+                (25, 75, 105),
+                [
+                    (ox + 3, oy + 8),
+                    (ox + 7, oy + 4),
+                    (ox + 13, oy + 4),
+                    (ox + 17, oy + 8),
+                    (ox + 16, oy + 14),
+                    (ox + 6, oy + 16),
+                    (ox + 3, oy + 13)
+                ]
+            )
+
+            pygame.draw.line(
+                screen,
+                (25, 75, 105),
+                (ox + 5, oy + 12),
+                (ox + 14, oy + 14)
+            )
+
+            pygame.draw.line(
+                screen,
+                (80, 160, 185),
+                (ox + 6, oy + 7),
+                (ox + 11, oy + 6),
+                1
+            )
+
+            pygame.draw.line(
+                screen,
+                (95, 175, 195),
+                (ox + 12, oy + 9),
+                (ox + 15, oy + 9),
+                1
+            )
 
             pygame.draw.rect(
                 screen,
-                (0,shade,0),
-                (body_x[b], body_y[b],19,19)
+                (105, 65, 35),
+                (ox + 2, oy + 16, 3, 2)
+            )
+
+            pygame.draw.rect(
+                screen,
+                (105, 65, 35),
+                (ox + 15, oy + 3, 3, 2)
+            )
+            
+            score_text = font.render(
+                "Score: " + str(score), 
+                True, 
+                (255,255,255)
+            )
+
+            screen.blit(score_text, (10, 10))
+
+            length_text = font.render(
+                "Length: " + str(length),
+                True,
+                (255, 255, 255)
+            )
+
+            screen.blit(length_text, (120, 10))
+
+            if bonus_active == True:
+                bonus_text = font.render(
+                    "BONUS +5",
+                    True,
+                    (255,255,255)
                 )
+                screen.blit(bonus_text, (240, 10))
 
-    screen.blit(surface, (0, 0))
-    for j in range(len(obstacle_x)):
+        if move_y == 20:
+            angle = 180
 
-        ox = obstacle_x[j]
-        oy = obstacle_y[j]
+        elif move_x == -20:
+            angle = 90
 
-        pygame.draw.polygon(
-            screen,
-            [45, 30, 20],
-            [
-                (ox + 1, oy + 7),
-                (ox + 4, oy + 3),
-                (ox + 10, oy + 1),
-                (ox + 16, oy + 1),
-                (ox + 19, oy + 9),
-                (ox + 18, oy + 15),
-                (ox + 14, oy + 19),
-                (ox + 7, oy + 18),
-                (ox + 2, oy + 15),
-                (ox + 1, oy + 7)
-            ]
+        elif move_y == -20:
+            angle = 0
+
+        elif move_x == 20:
+            angle = 270
+
+        for b in range(len(body_x)):
+            
+            if b == 0:
+                bag = first_bag_surface
+            else:
+                bag = bag_surface
+
+            rotated_bag = pygame.transform.rotate(
+                bag, 
+                angle
+            )
+
+            bag_rect = rotated_bag.get_rect(
+                center = (
+                    body_x[b] + 10,
+                    body_y[b] + 10
+                )
+            )
+
+            screen.blit(
+                rotated_bag,
+                bag_rect
+            )
+
+        rotated_farmer = pygame.transform.rotate(
+            farmer_surface,
+            angle
         )
 
-        pygame.draw.polygon(
-            screen,
-            (25, 75, 105),
-            [
-                (ox + 3, oy + 8),
-                (ox + 7, oy + 4),
-                (ox + 13, oy + 4),
-                (ox + 17, oy + 8),
-                (ox + 16, oy + 14),
-                (ox + 6, oy + 16),
-                (ox + 3, oy + 13)
-            ]
+        farmer_rect = rotated_farmer.get_rect(
+            center = (
+                x + 10, 
+                y + 10
+            )
         )
 
-        pygame.draw.line(
-            screen,
-            (25, 75, 105),
-            (ox + 5, oy + 12),
-            (ox + 14, oy + 14)
+        screen.blit(
+            rotated_farmer,
+            farmer_rect
         )
-
-        pygame.draw.line(
-            screen,
-            (80, 160, 185),
-            (ox + 6, oy + 7),
-            (ox + 11, oy + 6),
-            1
-        )
-
-        pygame.draw.line(
-            screen,
-            (95, 175, 195),
-            (ox + 12, oy + 9),
-            (ox + 15, oy + 9),
-            1
-        )
-
-        pygame.draw.rect(
-            screen,
-            (105, 65, 35),
-            (ox + 2, oy + 16, 3, 2)
-        )
-
-        pygame.draw.rect(
-            screen,
-            (105, 65, 35),
-            (ox + 15, oy + 3, 3, 2)
-        pygame.draw.rect(
-            screen,
-            (0,255,100),
-            (x,y,20,20)
-        )
-
-        pygame.draw.rect(
-            screen, 
-            (0, 0, 0), 
-            (x + 3, y + 3, 4, 4)
-        )
-        
-        pygame.draw.rect(
-            screen, 
-            (0, 0, 0), 
-            (x + 13, y + 3, 4, 4)
-        )
-        
-        score_text = font.render(
-            "Score: " + str(score), 
-            True, 
-            (255,255,255)
-        )
-
-        screen.blit(score_text, (10, 10))
-
-        length_text = font.render(
-            "Length: " + str(length),
-            True,
-            (255, 255, 255)
-        )
-
-        screen.blit(length_text, (120, 10))
 
         if bonus_active == True:
             bonus_text = font.render(
                 "BONUS +5",
                 True,
-                (255,255,255)
+                (255, 255, 255)
             )
+
             screen.blit(bonus_text, (240, 10))
 
-    if move_y == 20:
-        angle = 180
-
-    elif move_x == -20:
-        angle = 90
-
-    elif move_y == -20:
-        angle = 0
-
-    elif move_x == 20:
-        angle = 270
-
-    for b in range(len(body_x)):
-        
-        if b == 0:
-            bag = first_bag_surface
-        else:
-            bag = bag_surface
-
-        rotated_bag = pygame.transform.rotate(
-            bag, 
-            angle
-        )
-
-        bag_rect = rotated_bag.get_rect(
-            center = (
-                body_x[b] + 10,
-                body_y[b] + 10
-            )
-        )
-
-        screen.blit(
-            rotated_bag,
-            bag_rect
-        )
-
-    rotated_farmer = pygame.transform.rotate(
-        farmer_surface,
-        angle
-    )
-
-    farmer_rect = rotated_farmer.get_rect(
-        center = (
-            x + 10, 
-            y + 10
-        )
-    )
-
-    screen.blit(
-        rotated_farmer,
-        farmer_rect
-    )
-
-    score_text = font.render(
-        "Score: " + str(score), 
-        True, 
-        (255, 255, 255)
-    )
         else:
             seconds_left = (bonus_spawn_time - pygame.time.get_ticks()) // 1000 + 1
+
             if seconds_left < 0:
                 seconds_left = 0
 
             bonus_timer_text = font.render(
                 "Bonus in:" + str(seconds_left),
                 True,
-                (255,255,255)
+                (255, 255, 255)
             )
 
-            screen.blit(bonus_timer_text, (240,10))
+            screen.blit(bonus_timer_text, (240, 10))
 
         pygame.display.flip()
         pygame.time.delay(delay_time)
@@ -1009,8 +930,8 @@ while playing_game:
                     if event.key == pygame.K_SPACE:
                         restart_waiting = False
 
-                    if event.type == pygame.MOUSEBUTTONDOWN:
-                        restart_waiting = False
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    restart_waiting = False
 
             screen.fill((92, 62, 38))
             surface.fill((0, 0, 0, 0))
