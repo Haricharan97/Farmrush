@@ -11,6 +11,9 @@ y = 300
 move_x = 20
 move_y = 0
 
+last_x = 20
+last_y = 0
+
 food_x = random.randrange(0, 800, 20)
 food_y = random.randrange(0, 600, 20)
 
@@ -57,6 +60,20 @@ pygame.draw.rect(
     (75, 45, 22),
     (5, 5, 10, 10)
 )
+
+for dot_x, dot_y in [(6, 6), (11, 12), (8, 9)]:
+   pygame.draw.rect(
+       bag_surface,
+       (230, 195, 60),
+       (dot_x, dot_y, 1, 1)
+   ) 
+
+for dot_x, dot_y in [(6, 12), (11, 6)]:
+   pygame.draw.rect(
+       bag_surface,
+       (230, 195, 60),
+       (dot_x, dot_y, 2, 2)
+   ) 
 
 first_bag_surface.blit(bag_surface, (0, 0))
 
@@ -351,6 +368,7 @@ while playing_game:
 
             if event.type == pygame.QUIT:
                 running = False
+                playing_game = False
                 window_closed = True
                 
             if event.type == pygame.KEYDOWN:
@@ -407,6 +425,9 @@ while playing_game:
 
         x = x + move_x
         y = y + move_y
+
+        last_x = move_x
+        last_y = move_y
 
         if x >= 800:
             x = 0
