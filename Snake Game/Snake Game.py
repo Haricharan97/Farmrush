@@ -339,8 +339,8 @@ while playing_game:
     x = 400
     y = 300
 
-    move_x = 20
-    move_y = 0
+    last_x = 20
+    last_y = 0
 
     score = 0
     length = 1
@@ -382,22 +382,22 @@ while playing_game:
                 if paused == False: 
 
                     if event.key == pygame.K_UP:
-                        if move_y != 20:
+                        if last_y != 20:
                             move_x = 0
                             move_y = -20
 
                     if event.key == pygame.K_DOWN:
-                        if move_y != -20:
+                        if last_y != -20:
                             move_x = 0
                             move_y = 20
 
                     if event.key == pygame.K_RIGHT:
-                        if move_x != -20:    
+                        if last_x != -20:    
                             move_x = 20
                             move_y = 0
 
                     if event.key == pygame.K_LEFT:
-                        if move_x != 20:
+                        if last_x != 20:
                             move_x = -20
                             move_y = 0
 
