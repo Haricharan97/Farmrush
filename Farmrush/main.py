@@ -513,6 +513,11 @@ async def main():
                     bonus_active = True
                     bonus_start_time = current_time
 
+
+
+
+
+
             if bonus_active == True:
                 if current_time - bonus_start_time >= 8000:
                     bonus_active = False
@@ -521,9 +526,9 @@ async def main():
 
                     bonus_spawn_time = current_time + 30000
 
-                if bonus_active == True:
-                    snake_head = pygame.Rect(x, y, 20, 20)
-                    bonus_rect = pygame.Rect(bonus_x, bonus_y, 20, 20)
+            if bonus_active == True:
+                snake_head = pygame.Rect(x, y, 20, 20)
+                bonus_rect = pygame.Rect(bonus_x, bonus_y, 20, 20)
 
                 if snake_head.colliderect(bonus_rect):
                     score += 5
@@ -533,6 +538,10 @@ async def main():
                     bonus_y = -20
 
                     bonus_spawn_time = pygame.time.get_ticks() + 30000
+
+
+
+
 
             body_x.append(x)
             body_y.append(y)
@@ -700,79 +709,72 @@ async def main():
 
             if bonus_active == True:
 
-                blink = pygame.time.get_ticks()
+                bonus_age = pygame.time.get_ticks() - bonus_start_time
 
-                if (blink // 150) % 2 == 0:
-                    pygame.draw.polygon(
+                if bonus_age < 5000 or (bonus_age // 150) % 2 == 0:
+
+                    pygame.draw.rect(
                         screen,
-                        (205, 170, 45),
-                        [
-                            (bonus_x + 1, bonus_y + 3),
-                            (bonus_x + 4, bonus_y + 1),
-                            (bonus_x + 8, bonus_y + 2),
-                            (bonus_x + 12, bonus_y + 1),
-                            (bonus_x + 16, bonus_y + 3),
-                            (bonus_x + 19, bonus_y + 2),
-                            (bonus_x + 18, bonus_y + 6),
-                            (bonus_x + 18, bonus_y + 10),
-                            (bonus_x + 17, bonus_y + 14),
-                            (bonus_x + 19, bonus_y + 17),
-                            (bonus_x + 15, bonus_y + 19),
-                            (bonus_x + 11, bonus_y + 18),
-                            (bonus_x + 7, bonus_y + 19),
-                            (bonus_x + 3, bonus_y + 17),
-                            (bonus_x + 1, bonus_y + 14),
-                            (bonus_x + 2, bonus_y + 10),
-                            (bonus_x + 1, bonus_y + 6)
-                        ]
+                        (140, 100, 30),
+                        (bonus_x + 1, bonus_y + 4, 18, 14)
                     )
 
-                    pygame.draw.line(
+                    pygame.draw.rect(
                         screen,
-                        (240,205,70),
-                        (bonus_x + 3, bonus_y + 16),
-                        (bonus_x + 8, bonus_y +4),
-                        2
+                        (225, 185, 65),
+                        (bonus_x + 2, bonus_y + 5, 16, 11)
                     )
 
-                    pygame.draw.line(
+                    pygame.draw.rect(
                         screen,
-                        (175, 140, 30),
-                        (bonus_x + 7, bonus_y + 17),
-                        (bonus_x + 12, bonus_y +3),
-                        2
+                        (245, 215, 110),
+                        (bonus_x + 2, bonus_y + 5, 16, 2)
                     )
 
-                    pygame.draw.line(
+                    pygame.draw.rect(
                         screen,
-                        (240,205,70),
-                        (bonus_x + 11, bonus_y + 16),
-                        (bonus_x + 16, bonus_y +5),
-                        2
+                        (190, 150, 45),
+                        (bonus_x + 2, bonus_y + 14, 16, 2)
                     )
 
-                    pygame.draw.line(
+                    for dash_x, dash_y in [(3, 8), (9, 9), (15, 8), (4, 11), (10, 12), (14, 11)]:
+                        pygame.draw.line(
+                            screen,
+                            (175, 135, 40),
+                            (bonus_x + dash_x, bonus_y + dash_y),
+                            (bonus_x + dash_x + 2, bonus_y + dash_y),
+                            1
+                        )
+
+                    pygame.draw.rect(
                         screen,
-                        (160,125,25),
-                        (bonus_x + 3, bonus_y + 7),
-                        (bonus_x + 16, bonus_y +12),
-                        1
+                        (165, 80, 45),
+                        (bonus_x + 6, bonus_y + 4, 2, 14),
                     )
 
-                    pygame.draw.line(
+                    pygame.draw.rect(
                         screen,
-                        (250,220,90),
-                        (bonus_x + 4, bonus_y + 4),
-                        (bonus_x + 15, bonus_y + 15),
+                        (165, 80, 45),
+                        (bonus_x + 12, bonus_y + 4, 2, 14)
                     )
 
-                    pygame.draw.line(
-                        screen,
-                        (240,0,0),
-                        (bonus_x + 2, bonus_y + 10),
-                        (bonus_x + 18, bonus_y + 10),
-                        3
-                    )
+                    for wisp_x, wisp_y in [(3, 4), (9, 4), (16, 4)]:
+                        pygame.draw.line(
+                            screen,
+                            (245, 215, 110),
+                            (bonus_x + wisp_x, bonus_y + wisp_y),
+                            (bonus_x + wisp_x - 1, bonus_y + wisp_y - 2),
+                            1
+                        )
+
+
+
+
+
+
+
+
+
 
             screen.blit(surface, (0, 0))
             for j in range(len(obstacle_x)):
