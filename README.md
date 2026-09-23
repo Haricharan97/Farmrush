@@ -8,17 +8,6 @@
 
 ---
 
-## Table of Contents
-
-[About](#about)  
-[Features](#features)  
-[How to Play](#how-to-play)  
-[Controls](#controls)  
-[Gallery](#gallery)  
-[Run Locally](#run-locally)
-
----
-
 ## About
 
 Farmrush is a snake-inspired farming arcade game where you control a farmer harvesting wheat across a field.
@@ -34,7 +23,7 @@ Farmrush is built with **Python and Pygame** and uses **Pygbag** to run directly
 - Retro snake style grid movement
 - Wheat harvesting and score tracking
 - Random pond obstacles
-- Bonus collectibles worth extra whears
+- Bonus collectibles worth 5 wheat 
 - Pause and restart system
 - Browser support with Pygbag
 
@@ -58,7 +47,7 @@ Farmrush is built with **Python and Pygame** and uses **Pygbag** to run directly
 `←` = Move Left  
 `→` = Move Right  
 `SPACE` = Start / Pause / Resume  
-`CLICK` = Start / Resume / Restart  
+`CLICK` = Start / Restart / Resume
 
 ---
 
