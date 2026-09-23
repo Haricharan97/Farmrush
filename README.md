@@ -1,5 +1,3 @@
-# Farmrush
-
 ![Farmrush Logo](./assets/logo.png)
 
 > A fast-paced farm-themed arcade game built with Python, Pygame, and Pygbag.
