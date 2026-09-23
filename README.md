@@ -31,12 +31,10 @@ Farmrush is built with **Python and Pygame** and uses **Pygbag** to run directly
 
 ## Features
 
-- Snake-style grid movement
+- Retro snake style grid movement
 - Wheat harvesting and score tracking
-- Growing bag trail
 - Random pond obstacles
-- Bonus collectibles worth extra points
-- Increasing game speed
+- Bonus collectibles worth extra whears
 - Pause and restart system
 - Browser support with Pygbag
 
