@@ -1,8 +1,13 @@
+<div align=center>
+
 ![Farmrush Logo](./assets/logo.png)
 
 > A fast-paced farm-themed arcade game built with Python, Pygame, and Pygbag.
 
 [View Source](https://github.com/Haricharan97/Farmrush/blob/main/Farmrush/main.py) · [Open Demo](https://haricharan97.github.io/Farmrush/)
+
+
+</div>
 
 ---
 
@@ -87,3 +92,9 @@ python -m pygbag --build Farmrush
 Made with **Python, Pygame, and Pygbag**.
 
 With love ~ **Haricharan & Azmeer** ❤️
+
+<div align=center>
+
+# Farmrush
+
+</div>
