@@ -2,7 +2,11 @@
 
 ![Farmrush Logo](./assets/logo.png)
 
+</div>
+
 > A fast-paced farm-themed arcade game built with Python, Pygame, and Pygbag.
+
+<div align=center>
 
 [View Source](https://github.com/Haricharan97/Farmrush/blob/main/Farmrush/main.py) · [Open Demo](https://haricharan97.github.io/Farmrush/)
 
