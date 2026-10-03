@@ -205,7 +205,7 @@ async def main():
             obstacle_x.append(new_x)
             obstacle_y.append(new_y)
 
-    big_font = pygame.font.Font(None, 80)
+    big_font = pygame.font.Font(None, 60)
     medium_font = pygame.font.Font(None, 50)
     window_closed = False
     paused = False
@@ -358,6 +358,7 @@ async def main():
 
         paused = False
         running = True
+        deathr = ""
 
         food_x = random.randrange(0, 800, 20)
         food_y = random.randrange(0, 600, 20)
@@ -456,10 +457,12 @@ async def main():
 
             for i in range(len(body_x) - 1):
                 if x == body_x[i] and y == body_y[i]:
+                    deathr = "You crashed into your bags"
                     running = False
 
             for j in range(len(obstacle_x)):
                 if x == obstacle_x[j] and y == obstacle_y[j]:
+                    deathr = "You fell in a pond"
                     running = False
 
             if x == food_x and y == food_y:
@@ -1036,7 +1039,7 @@ async def main():
             
 
                 game_over_text = big_font.render(
-                    "YOU FELL IN A POND",
+                    deathr.upper(),
                     True,
                     (255,255,255)
                     )
